@@ -9,7 +9,6 @@
 
 # 0. libraries -----------------------------------------------------------------
 # install libraries
-require(terra) # prova
 
 library(terra)
 library(sf)
