@@ -1,14 +1,6 @@
-# ------------------------------------------------------------------------------
-# ------------------------------- LANDUSE SCRIPT -------------------------------
-# ----------------------- using ESACCI data time series ------------------------
-
-# ------------------------------------------------------------------------------
-# ----------------------------------- Part 1 -----------------------------------
-# ----------------------- creating df with time series -------------------------
-
+#  Part 1 // creating df with time series --------------------------------------
 
 # 0. libraries -----------------------------------------------------------------
-# install libraries
 
 library(terra)
 library(sf)
@@ -53,7 +45,8 @@ r_stack <- mask(r_stack, crop_admin) #clip to admin boundaries shape
 
 plot (r_stack)
 
-# 4. fill LANDCOVER dataframe ------------------------------------------------------
+
+# 4. fill LANDCOVER dataframe --------------------------------------------------
 ## first reclassify raster, then aggregate;
 ## aggregation according to countmax
 
@@ -80,6 +73,7 @@ r_stack <- classify(r_stack, m_reclass, include.lowest=TRUE)
 
 r_stack
 
+
 # 5. reproject and create df ---------------------------------------------------
 
 coord_WGS04 <- as.data.frame(r_stack, xy = TRUE)
@@ -98,7 +92,7 @@ cnames
 
 for (i in 3:length(coord_WGS04)) {
   label <- substring(cnames[[i]], 32,35)
-  cnames[i] <- label
+  cnames[i] <- paste("y",label, sep = "")
 } 
 
 cnames
@@ -110,20 +104,20 @@ head(coord_WGS04)
 head(coord_WGS84)
 
 
-# export table to csv ----------------------------------------------------------
+# 6. export table --------------------------------------------------------------
 
 setwd(wd)
+
+## export as .shp // takes a lot of time. Find other format 
 
 coord_WGS04_sf <- st_as_sf(coord_WGS04, coords = c("x","y"), crs = 4302)
 coord_WGS84_sf <- st_as_sf(coord_WGS84, coords = c("x","y"), crs = WGS84)
 
 st_write(coord_WGS04_sf, "data_output/01_coord_WGS04.shp", append = FALSE)
 
+## export as .csv
+
 write.csv (coord_WGS04, "data_output/01_landuse_temporal_WGS04.csv")
-write.csv (coord_WGS84, "data_output/01_landuse_temporal_WGS84.csv") #this can be a very large file!
+write.csv (coord_WGS84, "data_output/01_landuse_temporal_WGS84.csv")
 
-
-# ------------------------------------------------------------------------------
 # ------------------------------------ END PART 1 ------------------------------
-# ------------------------------------------------------------------------------
-
