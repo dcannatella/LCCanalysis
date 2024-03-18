@@ -109,6 +109,7 @@ write.csv(stmatrix,"data_output/02_stmatrix.csv")
 
 admin_area %>%
   select(-c(geometry)) %>%
+  rename(city = NAME_2) %>%
   write.csv("data_output/03_cities_extent.csv")
 
 
