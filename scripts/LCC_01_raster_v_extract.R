@@ -120,7 +120,7 @@ coord_WGS84_sf <- st_as_sf(coord_WGS84, coords = c("x","y"), crs = WGS84)
 st_write(coord_WGS04_sf, "data_output/01_coord_WGS04.shp", append = FALSE)
 
 write.csv (coord_WGS04, "data_output/01_landuse_temporal_WGS04.csv")
-write.csv (coord_WGS84, "data_output/01_landuse_temporal_WGS84.csv")
+write.csv (coord_WGS84, "data_output/01_landuse_temporal_WGS84.csv") #this can be a very large file!
 
 
 # ------------------------------------------------------------------------------
