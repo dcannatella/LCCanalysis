@@ -18,7 +18,7 @@ This documentation provides an overview of a project focusing on Land Cover Chan
 ## Tools and Technologies
 
 - **R Programming Language**: Utilized for data manipulation, analysis, and visualization.
-- **R Packages**: Leveraging various R packages such as `raster`, `sp`, `ggplot2`, and `leaflet` for geospatial analysis and visualization.
+- **R Packages**: Leveraging various R packages such as `terra`, `sp`, `ggplot2`, and `leaflet` for geospatial analysis and visualization.
 - **Open Datasets**: Incorporating open datasets containing land cover information, possibly sourced from organizations like NASA, USGS, and ESA.
 - **Version Control**: Employing version control systems like Git to manage code and track changes.
 - **Markdown**: Using Markdown for documentation to maintain consistency and readability.
