@@ -2,9 +2,11 @@
 
 # Land Cover Change Analysis for Urban Deltaic Megaregions
 
-## Overview
+## Introduction
 
-This documentation provides an overview of a project focusing on Land Cover Change Analysis on Deltaic Urban Megaregions using the R programming language and various open datasets. The project aims to analyze and understand the dynamics of land cover change over time, particularly within urban deltaic megaregions, which are large interconnected networks of cities and metropolitan areas in highly vulnerable environments.
+This repository contains R scripts, workflows and research outputs developed and generated in the Land Cover Change (LCC) analysis of the Pearl River Delta (PRD) urban megaregion. The results of this analysis have been published in [Cannatella, 2023](10.12409/j.fjyl.202208170491). Please refer to the paper for detailed findings and analysis.
+
+. The project aims to analyze and understand the dynamics of land cover change over time, particularly within urban deltaic megaregions, which are large interconnected networks of cities and metropolitan areas in highly vulnerable environments.
 
 ## Project Objectives
 
