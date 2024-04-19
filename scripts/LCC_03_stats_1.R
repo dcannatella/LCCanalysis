@@ -6,26 +6,30 @@
 # ----------------------------------- Part 3 -----------------------------------
 # --------------------- formatting the table for alluvial ----------------------
 
-stmatrix <- read.csv("output/stmatrix.csv")
-head(stmatrix)
+
 
 # first calculations -----------------------------------------------------------
 # count samples in df ----------------------------------------------------------
 
-# Install libraries
-
+library(here)
 library(summarytools)
 library(sf)
 library(dplyr)
 library(ggplot2)
 
 
+stmatrix <- read.csv(here("data_output/02_stmatrix.csv"))
+head(stmatrix)
 cities <- st_read("data/admin_bound.shp") # import from data
+
 class (cities)
 print (cities, n=3)
 
 cities <- cities[,c(5,10)]
 print (cities)
+
+## 
+
 cities$area_km2 <- st_area(cities) #Take care of units #still to run
 cities$area_km2 <- as.numeric(cities$area_km2/1000000)
 
@@ -33,7 +37,8 @@ cities_df <- as.data.frame(cities)
 cities_df <- cities_df[c(1,4)]
 cities_df
 
-cities_df$perc <- round(cities_df$area_km2*100/sum(cities_df$area_km2),3)
+cities_df$perc <- round(cities_df$area_km2*100/sum(cities_df$area_km2),2)
+cities_df$area_km2 <- round (cities_df$area_km2,2)
 cities_df
 
 # Donut plot
@@ -79,22 +84,56 @@ cities_df %>%
   theme_minimal()
 
 
-cities <- subset(stmatrix, select = c(1,4))
+cities <- subset(stmatrix, select = c(3,4))
 
 head (cities)
 
-stats <- as.data.frame(freq(cities$city))
+cities_obs <- cities %>%
+  group_by(city) %>%
+  summarize(count=n(),
+            perc=round(n()/nrow(cities)*100,2)
+            )
 
-stats <- round(stats[2:5], 2)
+head(cities_obs)
+head(cities_df)
 
-head(stats)
+cities_df2 <- merge(cities_df, cities_obs, by.x = "NAME_2", by.y = "city")
+
+cities_df2$pdiff <- cities_df2$perc.x-cities_df2$perc.y
+
+cities_df2
+
+cities_df2$cwaffle <- round(cities_df2$count/1000,0)
+
+cities_df2 %>%
+  rename(cities_df2, city=NAME_2)
+
+library(waffle)
+
+ggplot(cities_df2, aes(fill=NAME_2, values=cwaffle))+
+  geom_waffle(n_rows = 25, size=0.2, colour="white")+
+  scale_fill_manual(name = NULL,
+                    values = c("#c9b42f",
+                               "#a54be0",
+                               "#6cd03a",
+                               "#cc5baf",
+                               "#6dac46",
+                               "#797bd2",
+                               "#da5f22",
+                               "#52b980",
+                               "#d45170",
+                               "#ad9144",
+                               "#d35b47"))+
+  coord_equal()+
+  theme_void()
+
+
 
 grouped_cities <- aggregate(cities, by=list(cities$city), FUN=length)
 
 head(grouped_cities)
 
 # count areas proportion in shapefile ------------------------------------------
-
 
 head(admin)
 

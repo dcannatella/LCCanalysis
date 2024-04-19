@@ -1,0 +1,6 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+data_output/*.csv
+data/*.shp.cpg.dbf.prj.shx.tif
