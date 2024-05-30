@@ -35,6 +35,8 @@ The analysis of the Pearl River Delta's urbanization dynamics draws upon a diver
 
 ### Data Collection and Preprocessing
 
+1. Using USGS SRTM Images
+
 Data for the analysis were obtained from diverse sources, including remote sensing imagery, geospatial datasets, and administrative records. Elevation data were derived from the Shuttle Radar Topography Mission (SRTM) dataset, with a spatial resolution of approximately 30 meters. Raster tiles in .tiff format were downloaded from the SRTM dataset, merged, and subsequently clipped using the bounding box of the administrative boundaries vector file specific to the Pearl River Delta (PRD). This preprocessing step ensured the creation of a seamless and localized elevation dataset tailored to the study area. Additionally, administrative boundaries for the PRD were delineated by merging different shapefiles containing features on administrative boundaries of Hong Kong, Macao, and Mainland cities forming the PRD. By harmonizing and integrating these diverse datasets, the analysis facilitated a comprehensive understanding of the urbanization dynamics within the PRD, enabling informed decision-making and sustainable development strategies.
 The data were processed and aggregated using QGIS and R packages such as `terra` and `sf`, which provide advanced functionalities for the manipulation and analysis of spatial data. This approach allowed for the efficient management of large volumes of geospatial data and the execution of aggregation and analysis operations at a regional level.
 
