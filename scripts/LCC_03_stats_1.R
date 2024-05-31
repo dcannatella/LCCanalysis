@@ -1,6 +1,6 @@
 # Part 3 // calculating initial stats
 
-# libraries
+# libraries --------------------------------------------------------------------
 
 library(here)
 library(summarytools)
@@ -12,6 +12,8 @@ library(leaflet)
 library(tidyr)
 library(reshape2)
 library(scales)
+library(ggthemes)
+library(gridExtra)
 
 
 # Create custom theme ----------------------------------------------------------
@@ -25,10 +27,20 @@ theme_prd <- function() {
         axis.title = element_text(size=8),
         legend.title = element_text(size=8, face="bold"),
         legend.text = element_text(size=6),
+        legend.key.size = unit(.75,'line'),
         title = element_text(size=8),
         plot.margin = margin(2, 2, 2, 2, "cm"))
 }
 
+
+theme_prd_map <- function() {
+  theme_prd()+
+    theme(panel.grid = element_blank(),
+          legend.position = "bottom",
+          axis.text = element_blank(),
+          axis.title = element_blank(),
+          legend.title = element_blank())
+}
 
 # first calculations -----------------------------------------------------------
 
@@ -84,8 +96,6 @@ ggsave("fig_output/01_PRDcities_area.jpg", width = 7.5, height = 7.5, dpi = 300)
 
 # Plot above and below ---------------------------------------------------------
 
-library(ggthemes)
-
 ABstats <- stmatrix %>%
   group_by(city, AB) %>%
   count()
@@ -118,8 +128,7 @@ ab1 <- ABstats %>%
   theme(panel.grid.major.y = element_blank(),
         legend.title = element_blank(),
         legend.position = c(0.85,0.05),
-        legend.background = element_rect(fill="white", colour="white"),
-        legend.key.size = unit(.75,'line'))+
+        legend.background = element_rect(fill="white", colour="white"))+
   scale_x_discrete(expand = c(0, .5)) +  # Add padding to x-axis
   scale_y_continuous(limits = c(-200000, 200000), breaks = brks, labels=lbls,
                      expand = c(0.12, 5))+
@@ -141,7 +150,6 @@ ab3
 ggsave("fig_output/02_PRD_cities_lecz.jpg", width = 7.5, height = 7.5, dpi = 300)
 
 # plot land use 1992-2015 ------------------------------------------------------
-#in progress
 
 head(stmatrix)
 
@@ -149,11 +157,9 @@ head(stmatrix)
 
 lctot1992 <- stmatrix %>%
   group_by(y1992) %>%
-  count() %>%
-  rename(values = n) %>%
-  mutate(norm = values*100/sum(values))
+  count()
 
-lctot1992$norm <- round(lctot1992$values/sum(lctot1992$values),4)*100
+lctot1992$norm <- round(lctot1992$n/sum(lctot1992$n),4)*100
 
 lctot1992 <- lctot1992 %>%
 mutate(n2 = as.integer(norm),
@@ -168,11 +174,9 @@ sum(lctot1992$n5)
 
 lctot2015 <- stmatrix %>%
   group_by(y2015) %>%
-  count() %>%
-  rename(values = n) %>%
-  mutate(norm = values*100/sum(values))
+  count()
 
-lctot2015$norm <- round(lctot2015$values/sum(lctot2015$values),4)*100
+lctot2015$norm <- round(lctot2015$n/sum(lctot2015$n),4)*100
 
 lctot2015 <- lctot2015 %>%
   mutate(n2 = as.integer(norm),
@@ -186,20 +190,29 @@ sum(lctot2015$n3)
 library(waffle)
 
 pal <- c("#bd4d44","#c18e3a", "#83a442", "#965baa","#407c2e","#59ca94")
+
+pal <- c("#c14e55",
+         "#a8aa3d",
+         "#62ab85",
+         "#c7924a",
+         "#5b5e32",
+         "#5ca0b7",
+         "#5ca0b7")
   
-labels <- c("urban areas", "agriculture/cropland",
-            "agriculture/irrigated", "grassland",
-            "forest","forest/wetland","water")
+labels <- c("urban areas", "agriculture (cropland)",
+            "agriculture (irrigated)", "grassland",
+            "forest","forest (wetland)","water")
 
   
-ggplot(lctot1992, aes(fill=y1992, values=n5))+
-  geom_waffle(n_rows = 10, size=4, colour="white", flip= T, radius = unit(0.50, "npc"))+
+p1 <- ggplot(lctot1992, aes(fill=y1992, values=n5))+
+  geom_waffle(n_rows = 10, size=5, colour="white", flip= T, radius = unit(0.25, "npc"))+
   scale_fill_manual(name = NULL,
                     values = pal,
                     labels = labels)+
   coord_equal()+
   theme_prd()+
-  labs(title="Percentage of Land Cover in 1992 in the PRD")+
+  labs(title="Land Cover distribution",
+       subtitle = "1992")+
   theme(legend.position = "bottom",
         axis.line = element_blank(),
         axis.line.y = element_blank(),
@@ -210,14 +223,15 @@ ggplot(lctot1992, aes(fill=y1992, values=n5))+
   
 #plot waffle 2015
 
-ggplot(lctot2015, aes(fill=y2015, values=n3))+
-  geom_waffle(n_rows = 10, size=4, colour="white", flip= T, radius = unit(0.50, "npc"))+
+p2 <- ggplot(lctot2015, aes(fill=y2015, values=n3))+
+  geom_waffle(n_rows = 10, size=5, colour="white", flip= T, radius = unit(0.25, "npc"))+
   scale_fill_manual(name = NULL,
                     values = pal,
                     labels = labels)+
   coord_equal()+
   theme_prd()+
-  labs(title="Percentage of Land Cover in 2015 in the PRD")+
+  labs(title="Land Cover distribution",
+       subtitle = "2015")+
   theme(legend.position = "bottom",
         axis.line = element_blank(),
         axis.line.y = element_blank(),
@@ -226,6 +240,11 @@ ggplot(lctot2015, aes(fill=y2015, values=n3))+
         axis.text.x=element_blank(),
         axis.text.y=element_blank())
 
+ggsave("fig_output/03a_lc_distr_1992.jpg", p1, width = 7.5, height = 7.5, dpi = 300)
+ggsave("fig_output/03a_lc_distr_2015.jpg", p2, width = 7.5, height = 7.5, dpi = 300)
+
+# plot in grid (in progress)
+grid.arrange(p1, p2, ncol = 2)
 
 
 # plot urbanization trends------------------------------------------------------
@@ -246,7 +265,7 @@ st_urb <- transform_values(stmatrix)
 st_urb <- st_urb %>%
   group_by(city) %>%
   summarise(across(where(is.numeric), sum)) %>%
-  select(-c(2, 3)) %>%
+  dplyr::select(-c(2, 3)) %>%
   melt()
 
 df_labs_start <- st_urb %>%
@@ -255,39 +274,63 @@ df_labs_start <- st_urb %>%
 df_labs_end <- st_urb %>%
   filter(variable == 'y2015')
 
+labels = seq(1992, 2015, 1)
 
 ggplot(st_urb, aes(variable, value, group = city))+
-  geom_line(linewidth=0.25)+
-  geom_point(size=.75)+
-  geom_text(data = df_labs_start, aes(x=variable, y=value, label = city),
-            hjust=-0.2, vjust=0.5, size =2)+
+  geom_line(linewidth=0.25, colour = "#31443e")+
+  geom_point(size=.75, colour = "#31443e")+
+  geom_text(data = df_labs_start, aes(x= variable, y=value, label = city),
+            hjust=1, vjust=0.5, nudge_x = -.5, size =2, check_overlap = T)+
   geom_text(data = df_labs_end, aes(x=variable, y=value, label = city),
-            hjust=-0.2, vjust=0.5, size =2)+
-  theme_prd()
-  
+            hjust=0, vjust=0.5, nudge_x = .5, size =2, check_overlap = T)+
+  labs(title="Urbanization in the PRD",
+       subtitle = "number of cells")+
+  scale_x_discrete(labels = labels,
+                   expand = c(.15, .15))+
+  theme_prd()+
+  theme(axis.text.x = element_text(angle = 90, hjust = 0))
+
+ggsave("fig_output/04_urb_temp.jpg", width = 7.5, height = 7.5, dpi = 300)  
 
 st_urb <- transform_values(stmatrix)
 
 st_urb <- st_urb %>%
   group_by(city, AB) %>%
   summarise(across(where(is.numeric), sum)) %>%
-  select(-c(3, 4)) %>%
+  dplyr::select(-c(3, 4)) %>%
   melt()
 
 st_urb$value <- ifelse(st_urb$AB == 'below', st_urb$value*-1, st_urb$value)
+
 ABstats <- merge(x = ABstats, y = cities_df, by.x = "city", by.y = "NAME_2", all = TRUE)
 
+colors = c("#c6ccc2","#31443e")
+brks <- seq (-10, 10, 5)
+lbls <- c(10,5,0,5,10)
+labels = seq(1992, 2015, 1)
 
-ggplot(st_urb, aes(variable, value, fill=AB)) +
+ggplot(st_urb, aes(variable, value/1000, fill=AB)) +
   geom_bar(stat = "identity", width = 0.5) + 
   theme(axis.text.x = element_text(angle=65, vjust=0.6)) + 
   coord_flip()+
   facet_wrap(~ city, nrow = 3)+
+  labs(title="Number of cells in LECZ by municipality",
+       subtitle="(x1000)",
+       y = "number of cells",
+       fill = "LECZ")+
+  scale_fill_manual(values=colors,
+                    labels=c("no LECZ", "LECZ"))+
+  scale_y_continuous(limits = c(-12, 12),breaks = brks, labels=lbls)+
+  scale_x_discrete(labels = labels)+
   theme_prd()+
   theme(panel.grid.major.y = element_blank(),
         panel.grid.minor.x = element_blank(),
-        legend.position = c(0.9,0.1),
+        legend.position = c(0.85,0.05),
+        legend.title = element_blank(),
         legend.background = element_rect(fill="white", colour="white"),
-        legend.key.size = unit(.75,'line'))+
-  scale_y_continuous(limits = c(-12000, 12000))
+        axis.title.y = element_blank(),
+        axis.text.y = element_text(size=3))+
+  guides(fill = guide_legend(reverse = TRUE))
 
+ggsave("fig_output/05_urb_city_lecz.jpg", width = 7.5, height = 7.5, dpi = 300) 
+  

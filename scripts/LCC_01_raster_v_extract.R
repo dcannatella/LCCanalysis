@@ -22,11 +22,14 @@ plot (crop_admin)
 
 rasterlist <- list.files(here("data/ESACCI"))
 outlist <- list() #create empty list to store outputs from loop
+rootdir <- here()
+setwd(here("data/ESACCI"))
 
 print (rasterlist)
 
 r_stack <- rast(rasterlist)
 
+setwd(rootdir)
 
 # 2.extract coordinates and resample raster if needed --------------------------
 
