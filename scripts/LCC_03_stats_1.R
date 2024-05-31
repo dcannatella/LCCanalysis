@@ -11,6 +11,7 @@ library(forcats)
 library(leaflet)
 library(tidyr)
 library(reshape2)
+library(scales)
 
 
 # Create custom theme ----------------------------------------------------------
@@ -24,17 +25,18 @@ theme_prd <- function() {
         axis.title = element_text(size=8),
         legend.title = element_text(size=8, face="bold"),
         legend.text = element_text(size=6),
-        title = element_text(size=8))
+        title = element_text(size=8),
+        plot.margin = margin(2, 2, 2, 2, "cm"))
 }
 
 
-
 # first calculations -----------------------------------------------------------
-## count samples in df 
 
 stmatrix <- read.csv(here("data_output/02_stmatrix.csv"))
 head(stmatrix)
 cities <- st_read("data/admin_bound.shp") # import from data
+
+## count samples in df 
 
 class (cities)
 print (cities, n=3)
@@ -55,23 +57,29 @@ cities_df
 
 # print cities extent lollipop chart -------------------------------------------
 
-lp <- cities_df %>%
+colors = c("#c6ccc2","#82837b","#31443e","#382920")
+
+cities_df %>%
   mutate(NAME_2 = fct_reorder(NAME_2, area_km2))%>%
-  ggplot(aes(x=NAME_2, y=area_km2, label=round(area_km2,2)))+
-  geom_point()+
-  geom_segment(aes(x=NAME_2,
+  ggplot(aes(x=NAME_2, y=area_km2, label=comma(area_km2, accuracy = 0.01)))+
+  geom_segment(color="#31443e", aes(x=NAME_2,
                    xend=NAME_2,
                    y=0,
                    yend=area_km2))+
-  geom_point(size=3, colour = "black")+
-  geom_text(hjust=-0.35, vjust=0.5, size=2)+
+  geom_point(size=3, colour = "#31443e")+
+  geom_text(hjust=-0.15, vjust=.5, size=2.5, nudge_x = .25, nudge_y = .25)+
   labs(title="Cities in the Pearl River Delta",
        subtitle="Extent of the cities in the PRD region, in square kilometers",
        y = "area (km2)") +
   coord_flip()+
-  theme_prd()
+  theme_prd()+
+  scale_x_discrete(expand = c(0, .5)) +  # Add padding to x-axis
+  scale_y_continuous(expand = c(0.12, 5)) +  # Add padding to y-axis
+  theme(axis.line.x = element_blank(),
+        axis.title.y = element_blank(),
+        panel.grid.major.y = element_blank())
 
-lp
+ggsave("fig_output/01_PRDcities_area.jpg", width = 7.5, height = 7.5, dpi = 300)
 
 
 # Plot above and below ---------------------------------------------------------
@@ -86,41 +94,51 @@ ABstats$count <- ifelse(ABstats$AB == 'below', ABstats$n*-1, ABstats$n)
 ABstats$fct <- ifelse(ABstats$AB == 'below', ABstats$n*-1, NA)
 ABstats <- merge(x = ABstats, y = cities_df, by.x = "city", by.y = "NAME_2", all = TRUE)
 
-brks <- seq (-200000, 200000, 50000)
-lbls <- paste0(as.character(c(seq(200, 0, -50), seq (50, 200, 50))), "m")
-  
-ab1 <- ABstats %>%
-  mutate(city = fct_reorder(city, area_km2), desc=TRUE)%>%
-  ggplot(aes(x=city, y=count, fill=AB))+
-  geom_bar(stat="identity", width = 0.3)+
-  coord_flip() +
-  labs(title="Number of cells below or above 10m above sea level",
-       y = "number of cells",
-       fill = "LECZ")+
-  theme_prd()+
-  theme(panel.grid.major.y = element_blank(),
-        legend.position = c(0.9,0.1),
-        legend.background = element_rect(fill="white", colour="white"),
-        legend.key.size = unit(.75,'line'))+
-  scale_y_continuous(limits = c(-200000, 200000), breaks = brks, labels=lbls)
-
 ABstats_above <- ABstats %>%
   filter(AB == 'above')
 
 ABstats_below <- ABstats %>%
   filter(AB == 'below')
 
+brks <- seq (-200000, 200000, 50000)
+lbls <- paste0(as.character(c(seq(200, 0, -50), seq (50, 200, 50))))
+
+colors = c("#c6ccc2","#31443e")
+  
+ab1 <- ABstats %>%
+  mutate(city = fct_reorder(city, area_km2), desc=TRUE)%>%
+  ggplot(aes(x=city, y=count, fill=AB))+
+  geom_bar(stat="identity", width = 0.3)+
+  coord_flip() +
+  labs(title="Number of cells in LECZ by municipality",
+       subtitle="(x1000)",
+       y = "number of cells",
+       fill = "LECZ")+
+  theme_prd()+
+  theme(panel.grid.major.y = element_blank(),
+        legend.title = element_blank(),
+        legend.position = c(0.85,0.05),
+        legend.background = element_rect(fill="white", colour="white"),
+        legend.key.size = unit(.75,'line'))+
+  scale_x_discrete(expand = c(0, .5)) +  # Add padding to x-axis
+  scale_y_continuous(limits = c(-200000, 200000), breaks = brks, labels=lbls,
+                     expand = c(0.12, 5))+
+  scale_fill_manual(values=colors,
+                    labels=c("no LECZ", "LECZ"))+
+  guides(fill = guide_legend(reverse = TRUE))
+
 ab2 <- ab1+
-  geom_text(data = ABstats_above, aes(x=city, y=count, label = n),
-            hjust=-0.2, vjust=0.5, size =2)
+  geom_text(data = ABstats_above, aes(x=city, y=count, label = comma(n)),
+            hjust=-0.1, vjust=0.5, size =2.5)
 
 ab3 <- ab2+
-  geom_text(data = ABstats_below, aes(x=city, y=count, label = n),
-            hjust=1.2, vjust=0.5, size =2)
+  geom_text(data = ABstats_below, aes(x=city, y=count, label = comma(n)),
+            hjust=1.25, vjust=0.5, size =2.5)
 
 
 ab3
 
+ggsave("fig_output/02_PRD_cities_lecz.jpg", width = 7.5, height = 7.5, dpi = 300)
 
 # plot land use 1992-2015 ------------------------------------------------------
 #in progress
