@@ -1,25 +1,26 @@
-#  Part 1 // creating df with time series --------------------------------------
+#  Part 1 // creating df with LCC time series
 
-# 0. libraries -----------------------------------------------------------------
+# 0. import libraries 
 
 library(terra)
 library(sf)
 library(dplyr)
+library(here)
 
 
-# 1. import crop shapefile and ESACCI rasters ----------------------------------
+# 1. import administrative boundaries shapefile and crop ESACCI rasters -------- 
 
-crop_admin <- st_read("data/admin_bound.shp")
-frame <- st_read("data/PRD_frame.shp")
+crop_admin <- st_read(here("data/admin_bound.shp"))
+frame <- st_read(here("data/PRD_frame.shp"))
 
 WGS84 <- crs(crop_admin)
 
 plot (crop_admin) 
 
-wd <- getwd()
-setwd("data/ESACCI")
 
-rasterlist <- list.files()
+## read tiffs in folder and stack rasters
+
+rasterlist <- list.files(here("data/ESACCI"))
 outlist <- list() #create empty list to store outputs from loop
 
 print (rasterlist)
@@ -27,7 +28,9 @@ print (rasterlist)
 r_stack <- rast(rasterlist)
 
 
-# 2.extract coordinates and resample raster-------------------------------------
+# 2.extract coordinates and resample raster if needed --------------------------
+
+## reproject admin boundaries in r_stack CRS, if needed
 
 crop_admin <- st_transform(crop_admin, crs(r_stack))
 
@@ -46,9 +49,9 @@ r_stack <- mask(r_stack, crop_admin) #clip to admin boundaries shape
 plot (r_stack)
 
 
-# 4. fill LANDCOVER dataframe --------------------------------------------------
-## first reclassify raster, then aggregate;
-## aggregation according to countmax
+# 4. populate Land Cover Change df ---------------------------------------------
+
+## raster reclassification. aggregation performed according to countmax
 
 v_reclass <- c(0,8,0,
                9,18,2, #agriculture/cropland
@@ -74,11 +77,19 @@ r_stack <- classify(r_stack, m_reclass, include.lowest=TRUE)
 r_stack
 
 
-# 5. reproject and create df ---------------------------------------------------
+# 5. reproject and create dfs --------------------------------------------------
+
+## this part creates two different df at two different resolutions, the original
+## and a custom resolution.
+## res sets the desired resolution of the raster before performing the values
+## extraction.
+
+res = 100
+
 
 coord_WGS04 <- as.data.frame(r_stack, xy = TRUE)
 
-coord_WGS84 <- project (r_stack, crs(WGS84), res=100)
+coord_WGS84 <- project (r_stack, crs(WGS84), res=res)
 
 plot(coord_WGS84)
 
@@ -108,12 +119,6 @@ head(coord_WGS84)
 
 setwd(wd)
 
-## export as .shp // takes a lot of time. Find other format 
-
-coord_WGS04_sf <- st_as_sf(coord_WGS04, coords = c("x","y"), crs = 4302)
-coord_WGS84_sf <- st_as_sf(coord_WGS84, coords = c("x","y"), crs = WGS84)
-
-st_write(coord_WGS04_sf, "data_output/01_coord_WGS04.shp", append = FALSE)
 
 ## export as .csv
 
