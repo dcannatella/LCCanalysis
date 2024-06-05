@@ -93,22 +93,52 @@ Document the entire process, including data sources, methodologies, and findings
 
 ## **Metadata
 ### 01. landuse_temporal_WGS04
+
 "x"
+- longitude coordinate in WGS84
 
 "y"
+- latitude coordinate in WGS84
 
 "y*nnnn*"
+- the year of land cover dataset 
 
-"classification"
+"classification" (the corresponding values in y*nnnn* column)
+- **0**: (0-8) Possibly unclassified or undefined
+- **1**: (189-198) Urban areas
+- **2**: (9-18, 29-48) Agriculture/cropland
+- **3**: (19-28) Agriculture/irrigated
+- **4**: (119-128, 129-138, 139-158, 179-188, 199-208) Shrubland, grassland, sparse vegetation, bare areas
+- **5**: (49-108, 109-118) Forests
+- **6**: (159-178) Forest/wetland
+- **7**: (209-218) Water bodies
+- **8**: (219-228) Permanent snow and ice
+
 
 ### 02. stmatrix
+
 "ID"
+- a unique identifier for each data point
 
 "city"
+- the name of the city
 
 "AB"
+- elevation classification. "above" indicates elevation is above 10m, "below" indicates elevation is below 10m.
 
 "y*nnnn*"
+- the year of land cover dataset
+
+"classification" (the corresponding values in y*nnnn* column)
+- **0**: (0-8) Possibly unclassified or undefined
+- **1**: (189-198) Urban areas
+- **2**: (9-18, 29-48) Agriculture/cropland
+- **3**: (19-28) Agriculture/irrigated
+- **4**: (119-128, 129-138, 139-158, 179-188, 199-208) Shrubland, grassland, sparse vegetation, bare areas
+- **5**: (49-108, 109-118) Forests
+- **6**: (159-178) Forest/wetland
+- **7**: (209-218) Water bodies
+- **8**: (219-228) Permanent snow and ice
 
 ### 03. cities_extent
 "city"
