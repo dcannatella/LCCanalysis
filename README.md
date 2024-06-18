@@ -187,7 +187,6 @@ Document the entire process, including data sources, methodologies, and findings
 
 ### 4.1 Data
 
----
 <details>
 <summary><strong>4.1.1 admin_bound.shp</strong></summary>
 
