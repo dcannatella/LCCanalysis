@@ -54,7 +54,7 @@ The data were processed and aggregated using QGIS and R packages such as `terra`
 
 - **Elevation**: Elevation data were derived from the Shuttle Radar Topography Mission (SRTM) dataset, with a spatial resolution of approximately 30 meters. Raster tiles in .tiff format were downloaded from the SRTM dataset, merged, and subsequently clipped using the bounding box of the administrative boundaries vector file specific to the PRD. Elevation data were reclassified into two categories: areas above and below 10 meters above sea level. This reclassification facilitated the identification of low-lying coastal areas susceptible to inundation and other hydrological risks. The preprocessing and reclassification steps were implemented using a custom R script available in the project's repository: [`scripts/LCC_02_spatitemporalmatrix.R`](https://github.com/dcannatella/LCCanalysis/blob/newreadme/scripts/LCC_02_spatiotemporalmatrix.R).
 
- ### **Step-by-step workflow (USGS SRTM)
+ ### Step-by-step workflow (USGS SRTM)
  1. Creating the bounding box (bbox) from administrative boundaries
     - Load the administrative boundary .shp files in [QGIS](https://www.qgis.org/it/site/) (*Be aware of the CRS!*)
     - Merge the adminstrative bounday features if necessary
@@ -140,7 +140,7 @@ Document the entire process, including data sources, methodologies, and findings
 "area_km2"
 - area of the city in km<sup>2</sup>   -->
 
-## **Metadata
+## Metadata
 ### 3. File Overview
 ### 3.1 File List
 
@@ -212,55 +212,55 @@ Document the entire process, including data sources, methodologies, and findings
     3. type of variable: String (3.0)
     4. unit of measure: NA
     5. number of missing values: 1
-3. **“NAME”**
+<!-- 3. **“NAME”**
     1. full name: 
     2. description:
     3. type of variable: 
     4. unit of measure: 
-    5. number of missing values: 
-4. **“NAME_0”**
-    1. full name:
+    5. number of missing values:  -->
+3. **“NAME_0”**
+    1. full name: Country 
     2. description: Name of the country 
     3. type of variable: String (75.0)
     4. unit of measure: NA
     5. number of missing values: 2
-5. **“NAME_1”**
-    1. full name:
+4. **“NAME_1”**
+    1. full name: Province
     2. description: Name of the province
     3. type of variable: String (75.0)
     4. unit of measure: NA
     5. number of missing values: 2
-6. **“NAME_2”**
-    1. full name:
+5. **“NAME_2”**
+    1. full name: City
     2. description: Name of the city
     3. type of variable: String (75.0)
     4. unit of measure: NA
     5. number of missing values: 0
-7. **“TYPE_2”**
-    1. full name:
-    2. description: A prefecture-level city in the administrative division hierarchy of China; Dìjíshì" (地级市)
+6. **“TYPE_2”**
+    1. full name: Type
+    2. description: A prefecture-level city in the administrative division hierarchy of China; Dìjíshì(地级市)
     3. type of variable: String (50.0)
     4. unit of measure: NA
     5. number of missing values: 2
-8. **“ENGTYPE_2”**
-    1. full name:
-    2. description: English term of Dìjíshì" (地级市); prefecture level city
+7. **“ENGTYPE_2”**
+    1. full name: Type in English
+    2. description: English term of Dìjíshì(地级市); prefecture level city
     3. type of variable: String (50.0)
     4. unit of measure: NA
     5. number of missing values: 2
-9. **“AREA_SQKM”**
+8. **“AREA_SQKM”**
     1. full name: Area in Square Kilometers
     2. description: area of the city in square kilometers (km<sup>2</sup>)
     3. type of variable: Real (24.15)
     4. unit of measure: km<sup>2</sup>
     5. number of missing values: 0
-10. **“SHAPE_LENGTH”**
+9. **“SHAPE_LENGTH”**
     1. full name: Shape Length
     2. description: total perimeter of the city in meters (m)
     3. type of variable: Real (24.15)
     4. unit of measure: meters
     5. number of missing values: 0
-11. **“SHAPE_AREA”**
+10. **“SHAPE_AREA”**
     1. full name: Shape Area
     2. description: area of the city in sqaure meters (m<sup>2</sup>)
     3. type of variable: Real (24.15)
@@ -382,19 +382,19 @@ Offset: 0 |
     2. description: A numerical code representing different land cover types or classifications
     3. type of variable: Integer (32 bit)
     4. unit of measure: NA
-    5. number of missing values: ??
+    5. number of missing values: -
 2. **“VALUE2”**
     1. full name: Subclass Value
     2. description: A detailed numerical code representing subcategories within the main land cover types.
     3. type of variable: Integer (32 bit)
     4. unit of measure: NA
-    5. number of missing values: ??
+    5. number of missing values: -
 3. **“LABEL”**
     1. full name: Label
     2. description: Descriptive names of land cover types or classifications corresponding to 'VALUE' and 'VALUE2'.
     3. type of variable: String
     4. unit of measure: NA
-    5. number of missing values: ??
+    5. number of missing values: -
 </details>
 
 ## Tools and Technologies
