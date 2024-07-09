@@ -144,8 +144,8 @@ Data were pre-processed and aggregated using QGIS and R packages such as `terra`
 - area of the city in km<sup>2</sup>   -->
 
 ## Metadata
-### 3. File Overview
-### 3.1 File List
+### File Overview
+### File List
 
 ```plaintext
 # File Structure
@@ -166,29 +166,28 @@ Data were pre-processed and aggregated using QGIS and R packages such as `terra`
 ```
 
 
-### 3.2 Relationship between files
+### Relationship between files
 
 
 
-### 3.3 File formats and naming conventions
+### File formats and naming conventions
+#### File formats
 
 - **SHP** - geospatial vector data
 - **TIFF -**  raster data
 - **CSV** - tabular data
 
-### 3.3.1 File formats
-
-### 3.3.2 Naming conventions
+#### Naming conventions
 
 - files named lowercase, spaces replaced with underscore(snake-case)
 
-### 4. Data-specific Information
+### Data-specific Information
 
 - **missing data code:** NA ****
 - **not applicable:** N/A
 - **specialised formats or other abbreviations used:** N/A
 
-### 4.1 Data
+### Data
 
 <details>
 <summary><strong>4.1.1 admin_bound.shp</strong></summary>
