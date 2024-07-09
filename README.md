@@ -37,8 +37,8 @@ These objectives guide the methodology and analysis approach employed in this pr
 The analysis of the Pearl River Delta's urbanization dynamics draws upon a diverse array of data sourceswith global coverage:
 
 1. **[ESA CCI Land Cover Maps (ESA CCI-LC)](https://www.esa-landcover-cci.org/?q=node/164)**: Provides global land cover datasets at 300 m spatial resolution on an annual basis, from 1992 to 2015. 
-<!-- 2. **[Shuttle Radar Topography Mission (SRTM) Images](https://cmr.earthdata.nasa.gov/search/concepts/C1220566448-USGS_LTA.html)** provides topographic data over 80% of the Earth's land mass, creating the first-ever near-global data set of land elevations. -->
-5. **[GADM maps and data](https://gadm.org/)** provides maps and spatial data for all countries and their sub-divisions.
+2. **[Shuttle Radar Topography Mission (SRTM) Images](https://cmr.earthdata.nasa.gov/search/concepts/C1220566448-USGS_LTA.html)** provides topographic data over 80% of the Earth's land mass, creating the first-ever near-global data set of land elevations.
+3. **[GADM maps and data](https://gadm.org/)** provides maps and spatial data for all countries and their sub-divisions.
 
 ## Methodology
 
