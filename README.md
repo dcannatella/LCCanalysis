@@ -190,7 +190,7 @@ Data were pre-processed and aggregated using QGIS and R packages such as `terra`
 ### Data
 
 <details>
-<summary><strong>4.1.1 admin_bound.shp</strong></summary>
+<summary><strong>admin_bound.shp</strong></summary>
 
 | 1 | number of variables | 11 |
 | --- | --- | --- |
@@ -271,7 +271,7 @@ Data were pre-processed and aggregated using QGIS and R packages such as `terra`
 </details>
 
 <details>
-<summary><strong>4.1.2 PRD_frame.shp</strong></summary>
+<summary><strong>PRD_frame.shp</strong></summary>
 
 | 1 | number of variables | 10 |
 | --- | --- | --- |
@@ -347,7 +347,7 @@ Data were pre-processed and aggregated using QGIS and R packages such as `terra`
 </details>
 
 <details>
-<summary><strong>4.1.3 elevation_USDG.tif</strong></summary>
+<summary><strong>elevation_USDG.tif</strong></summary>
 
 | 1 | number of variables | 1 |
 | --- | --- | --- |
@@ -371,9 +371,9 @@ Offset: 0 |
 </details>
 
 <details>
-<summary><strong>4.1.4 ESACCI_legend.csv</strong></summary>
+<summary><strong>ESACCI_legend.csv</strong></summary>
 
-| 1 | number of variables | 3 |
+| 1 | number of variables | 5 |
 | --- | --- | --- |
 | 2 | rows count | 38 |
 
@@ -385,15 +385,27 @@ Offset: 0 |
     3. type of variable: Integer (32 bit)
     4. unit of measure: NA
     5. number of missing values: -
-2. **“VALUE2”**
+2. **“VALUE1”**
+    1. full name: Mainclass Value
+    2. description: A numerical code representing main land cover types or classifications
+    3. type of variable: Integer (32 bit)
+    4. unit of measure: NA
+    5. number of missing values: -
+3. **“VALUE2”**
     1. full name: Subclass Value
     2. description: A detailed numerical code representing subcategories within the main land cover types.
     3. type of variable: Integer (32 bit)
     4. unit of measure: NA
     5. number of missing values: -
-3. **“LABEL”**
+4. **“LABEL1”**
     1. full name: Label
     2. description: Descriptive names of land cover types or classifications corresponding to 'VALUE' and 'VALUE2'.
+    3. type of variable: String
+    4. unit of measure: NA
+    5. number of missing values: -
+ 5. **“LABEL2”**
+    1. full name: Label
+    2. description: Descriptive names of land cover subtypes or classifications corresponding to 'VALUE' and 'VALUE2'.
     3. type of variable: String
     4. unit of measure: NA
     5. number of missing values: -
