@@ -55,15 +55,16 @@ Data were pre-processed and aggregated using QGIS and R packages such as `terra`
 
 - **Elevation**: Elevation data were derived from the Shuttle Radar Topography Mission (SRTM) dataset, with a spatial resolution of approximately 30 meters. Raster tiles in .tiff format were downloaded from the SRTM dataset, merged, and subsequently clipped using the bounding box of the administrative boundaries vector file specific to the PRD. Elevation data were reclassified into two categories: Low Elevation Coastal Zones (LECZs, areas below 10 meters above sea level), and non-LECZs (areas above 10 meters above s.l.). This reclassification facilitated the identification of low-lying coastal areas susceptible to coastal inundation and other hydrological risks. The preprocessing and reclassification steps were implemented using a custom R script available in the project's repository: [scripts/LCC_02_spatiotemporalmatrix.R](https://github.com/dcannatella/LCCanalysis/blob/main/scripts/LCC_02_spatiotemporalmatrix.R).
 
- ### Step-by-step workflow (USGS SRTM)
+ ### Step-by-step workflow
+ #### Creating elevation raster (USGS SRTM)
  1. Creating the bounding box (bbox) from administrative boundaries
     - Load the administrative boundary .shp files in [QGIS](https://www.qgis.org/it/site/) (*Be aware of the CRS!*)
-    - Merge the adminstrative bounday features if necessary
-    - Create the bbox of the administrative boundaries
+    - Merge the administrative boundary features if necessary
+    - Create the bbox of the administrative boundaries using the `Extract Layer Extent` tool.
     - Save the bbox as a .shp file
-2. Retrieve Elevation data from SRTM dataset
-    - Go to [USGS EarthExplorer](https://earthexplorer.usgs.gov/)
-    - Load the previously created bbox file to *KML/Shapefile Upload*
+2. Retrieving Elevation data from SRTM dataset
+    - Go to [USGS EarthExplorer](https://earthexplorer.usgs.gov/). (*To be able to download datasets, you have to create a free account*).
+    - Load the previously created bbox file to `KML/Shapefile Upload`
     - Select the specific data range, cloud cover, result options, etc. if necessary
     - Follow *Data Sets -> Digital Elevation -> SRTM -> SRTM Void Filled* to retrieve the SRTM data
     - This will yield all tiles within the bbox
@@ -71,8 +72,9 @@ Data were pre-processed and aggregated using QGIS and R packages such as `terra`
 3. Merging the tiles
     - After downloading all the .tiff files, load them back to the QGIS project
     - Check if there are any significant NODATA values that might affect the analysis
-    - Merge all the raster tiles together
-    - This is the final preprocessed raster needed for LCC analysis
+    - Merge all the raster tiles
+    - Additionally, you can clip the raster to the bbox layer.
+    - This is the final preprocessed raster needed for LCC analysis. Save it as `elevation.tiff` in the `data_input` folder.
 
 
 
