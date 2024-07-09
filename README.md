@@ -21,7 +21,7 @@ The primary objectives of this project are as follows:
 
 1. **Conduct Fine-Grained Land Cover Change (LCC) Analysis:** Utilize open remote sensing-derived data and spatial analysis techniques to conduct a comprehensive analysis of land cover changes in the Pearl River Delta (PRD) urban megaregion at a fine-grained temporal resolution of 1 year.
 
-2. **Identify Patterns and Trends:** Identify and analyze LCC patterns and trends in land cover change over a specific period, focusing on urbanization, agricultural expansion, and natural land cover transformations in [Low Elevation Coastal Zones (LECz)](https://en.wikipedia.org/wiki/Low_Elevation_Coastal_Zone).
+2. **Identify Patterns and Trends:** Identify and analyze LCC patterns and trends in land cover change over a specific period, focusing on urbanization, agricultural expansion, and natural land cover transformations in [Low Elevation Coastal Zones (LECZs)](https://en.wikipedia.org/wiki/Low_Elevation_Coastal_Zone).
 
 3. **Assess Impacts on Environment and Society:** Assess the environmental and societal impacts of observed land cover changes, including implications for biodiversity, ecosystem services, and human well-being.
 
