@@ -12,7 +12,7 @@
 
 ## Introduction
 
-This repository contains R scripts, workflows and research outputs developed and generated in the Land Cover Change (LCC) analysis of the Pearl River Delta (PRD) urban megaregion. The results of this analysis have been published in [Cannatella, 2023](10.12409/j.fjyl.202208170491). Please refer to the paper for detailed findings and analysis. The project utilized openly available datasets from various sources. For further information, please see the Data Sources section.
+This repository contains R scripts, workflows and research outputs developed and generated in the Land Cover Change (LCC) analysis of the Pearl River Delta (PRD) urban megaregion. The results of this analysis have been published in [Cannatella, 2023](http://www.lalavision.com/en/article/doi/10.12409/j.fjyl.202208170491?viewType=citedby-info). Please refer to the paper for detailed findings and analysis. The project utilized openly available datasets from various sources. For further information, please see the [Data Sources](##Data-Sources) section.
 
 
 ## Project Objectives
