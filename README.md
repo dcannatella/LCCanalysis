@@ -411,6 +411,35 @@ Offset: 0 |
     5. number of missing values: -
 </details>
 
+<details>
+<summary><strong>RCLCC_legend.csv</strong></summary>
+
+| 1 | number of variables | 3 |
+| --- | --- | --- |
+| 2 | rows count | 7 |
+
+**variable list:**
+
+1. **“VALUE”**
+    1. full name: Classification Value
+    2. description: A numerical code representing different land cover types or classifications
+    3. type of variable: Integer (32 bit)
+    4. unit of measure: NA
+    5. number of missing values: -
+4. **“LABEL”**
+    1. full name: Label
+    2. description: Descriptive names of land cover types or classifications corresponding to 'VALUE'.
+    3. type of variable: String
+    4. unit of measure: NA
+    5. number of missing values: -
+ 5. **“COD”**
+    1. full name: Label
+    2. description: Code of land cover subtypes or classifications corresponding to 'VALUE' and 'LABEL'.
+    3. type of variable: String
+    4. unit of measure: NA
+    5. number of missing values: -
+</details>
+
 ## Tools and Technologies
 
 - **R Programming Language**: Utilized for data manipulation, analysis, and visualization.
