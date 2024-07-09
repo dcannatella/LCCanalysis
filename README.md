@@ -78,9 +78,16 @@ Data were pre-processed and aggregated using QGIS and R packages such as `terra`
 
 ### Reclassifying Land Cover Categories
 - ESA CCI products showcase [38 LC categories](https://maps.elie.ucl.ac.be/CCI/viewer/download/ESACCI-LC-QuickUserGuide-LC-Maps_v2-0-7.pdf), defined using the UN Land Cover Classification System ([UN-CCS](https://www.fao.org/land-water/land/land-governance/land-resources-planning-toolbox/category/details/en/c/1036361/)).
-- 
-
-
+- The script reclassifies ESA CCI LC categories in 7 categories, namely:
+  - urban areas
+  - agriculture/cropland
+  - agriculture/irrigated
+  - shrubland, grassland, sparse vegetation, bare areas
+  - forest
+  - forest/wetland
+  - water
+  
+  
 
 ### **Land Cover Change Analysis**
 Utilize statistical and geospatial techniques to analyze changes in land cover over time.
