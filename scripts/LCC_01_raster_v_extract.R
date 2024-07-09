@@ -1,6 +1,6 @@
-#  Part 1 // creating df with LCC time series
+#  Part 1 // creating df with LCC time series ----------------------------------
 
-# 0. import libraries 
+# 0. import libraries ----------------------------------------------------------
 
 library(terra)
 library(sf)
