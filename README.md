@@ -77,7 +77,8 @@ Data were pre-processed and aggregated using QGIS and R packages such as `terra`
     - This is the final preprocessed raster needed for LCC analysis. Save it as `elevation.tiff` in the `data_input` folder.
 
 ### Reclassifying Land Cover Categories
-- ESACCI  UN Land Cover Classification System ([UN-CCS](https://www.fao.org/land-water/land/land-governance/land-resources-planning-toolbox/category/details/en/c/1036361/))
+- ESA CCI products showcase [38 LC categories](https://maps.elie.ucl.ac.be/CCI/viewer/download/ESACCI-LC-QuickUserGuide-LC-Maps_v2-0-7.pdf), defined using the UN Land Cover Classification System ([UN-CCS](https://www.fao.org/land-water/land/land-governance/land-resources-planning-toolbox/category/details/en/c/1036361/)).
+- 
 
 
 
