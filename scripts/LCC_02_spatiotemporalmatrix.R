@@ -2,9 +2,9 @@
 
 # 0. Import libraries ----------------------------------------------------------
 
-library(tidyr)
-library (sf)
-library(terra)
+require(tidyr)
+require(sf)
+require(terra)
 
 
 # 1. Import csv ----------------------------------------------------------------

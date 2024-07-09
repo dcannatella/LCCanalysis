@@ -2,10 +2,10 @@
 
 # 0. import libraries ----------------------------------------------------------
 
-library(terra)
-library(sf)
-library(dplyr)
-library(here)
+require(terra)
+require(sf)
+require(dplyr)
+require(here)
 
 
 # 1. import administrative boundaries shapefile and crop ESACCI rasters -------- 
@@ -56,7 +56,7 @@ plot (r_stack)
 
 ## raster reclassification. aggregation performed according to countmax
 
-v_reclass <- c(0,8,0,
+v_reclass <- c(0,8,0, #no value
                9,18,2, #agriculture/cropland
                19,28,3,#agriculture/irrigated
                29,48,2,#agriculture/cropland
@@ -65,8 +65,8 @@ v_reclass <- c(0,8,0,
                119,128,4,#shrubland
                129,138,4,#grassland
                139,158,4,#sparse vegetation
-               159,178,6,#forest/wetland (check)
-               179,188,4,#shrubland
+               159,178,6,#forest/wetland
+               179,188,6,#forest/wetland
                189,198,1,#urban areas
                199,208,4,#bare areas
                209,218,7,#water
