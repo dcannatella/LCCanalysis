@@ -1,22 +1,22 @@
-# Part 3 // calculating initial stats
+# Part 4 // calculating initial stats
 
-# libraries --------------------------------------------------------------------
+# 0. import libraries ----------------------------------------------------------
 
-library(here)
-library(summarytools)
-library(sf)
-library(dplyr)
-library(ggplot2)
-library(forcats)
-library(leaflet)
-library(tidyr)
-library(reshape2)
-library(scales)
-library(ggthemes)
-library(gridExtra)
+require(here)
+require(summarytools)
+require(sf)
+require(dplyr)
+require(ggplot2)
+require(forcats)
+require(leaflet)
+require(tidyr)
+require(reshape2)
+require(scales)
+require(ggthemes)
+require(gridExtra)
 
 
-# Create custom theme ----------------------------------------------------------
+# 1. Create custom themes-------------------------------------------------------
 
 theme_prd <- function() {
   theme_minimal()+
@@ -42,7 +42,7 @@ theme_prd_map <- function() {
           legend.title = element_blank())
 }
 
-# first calculations -----------------------------------------------------------
+# 2. initial calculations ------------------------------------------------------
 
 stmatrix <- read.csv(here("data_output/02_stmatrix.csv"))
 head(stmatrix)
@@ -53,7 +53,7 @@ cities <- st_read("data/admin_bound.shp") # import from data
 class (cities)
 print (cities, n=3)
 
-cities <- cities[,c(5,10)]
+cities <- cities[,c(6,10)]
 print (cities)
 
 cities$area_km2 <- st_area(cities) #Take care of units #still to run
@@ -99,6 +99,8 @@ ggsave("fig_output/01_PRDcities_area.jpg", width = 7.5, height = 7.5, dpi = 300)
 ABstats <- stmatrix %>%
   group_by(city, AB) %>%
   count()
+
+ABstats
 
 ABstats$count <- ifelse(ABstats$AB == 'below', ABstats$n*-1, ABstats$n)
 ABstats$fct <- ifelse(ABstats$AB == 'below', ABstats$n*-1, NA)
@@ -187,7 +189,7 @@ lctot2015$n5 <- ifelse(lctot2015$n4==max(lctot2015$n4), lctot2015$n3-1, lctot201
 
 sum(lctot2015$n3)
 
-library(waffle)
+require(waffle)
 
 pal <- c("#bd4d44","#c18e3a", "#83a442", "#965baa","#407c2e","#59ca94")
 

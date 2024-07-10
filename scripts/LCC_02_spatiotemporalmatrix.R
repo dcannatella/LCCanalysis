@@ -30,15 +30,15 @@ bound <- st_read("data/admin_bound.shp") # import from data
 class (bound)
 print (bound, n=3)
 
-bound <- bound[,c(5,10)]
-print (bound)
+bound2 <- bound[,c(6,10)]
+print (bound2)
 
 
 ## intersect points with administrative boundaries
 
-bound <- st_transform(bound, crs(coord_WGS04_sf))
+bound2 <- st_transform(bound2, crs(coord_WGS04_sf))
 
-coord_WGS04_sf <- st_intersection(coord_WGS04_sf, bound)
+coord_WGS04_sf <- st_intersection(coord_WGS04_sf, bound2)
 
 head(coord_WGS04_sf)
 
@@ -48,9 +48,9 @@ head(coord_WGS04_sf)
 DEM <- rast("data/elevation_USDG.tif")
 DEM
 
-bound <- st_transform(bound, crs(DEM))
+bound2 <- st_transform(bound2, crs(DEM))
 
-DEM <- mask(DEM, bound)
+DEM <- mask(DEM, bound2)
 
 crs(DEM)
 res (DEM)
@@ -69,6 +69,8 @@ coord_WGS04_df <- as.data.frame(coord_WGS04_sf) %>%
 
 head(coord_WGS04_df)
 
+colnames(coord_WGS04_df)
+
 # 3. Cleanup and prepare spatiotemporal matrix ---------------------------------
 
 stmatrix <- coord_WGS04_df[,c(1,30,31,26,29,2:25)]
@@ -83,24 +85,32 @@ stmatrix$elev[is.na(stmatrix$elev)] <- "above"
 head(stmatrix)
 
 stmatrix <- stmatrix %>%
-  rename(city = NAME_1) %>%
+  rename(city = NAME_2) %>%
   rename(ID2 = ID) %>%
   unpack(elev) %>%
   select(-c(ID)) %>%
   rename(ID = ID2) %>%
   rename(AB = elevation_USDG)
 
+head(stmatrix)
+colnames(stmatrix)
+
 
 # 4. Calculate administrative boundaries area ----------------------------------
 
-crs(bound)
+crs(bound2)
 
-bound$area_km2 <- st_area(bound) #Take care of units
-bound$area_km2 <- as.numeric(bound$area_km2/1000000)
+bound2
 
-head(bound)
+bound2$area_m2 <- st_area(bound2) #Take care of units
 
-admin_area <- as.data.frame(bound[,c(3,13)])
+head(bound2)
+
+bound2$area_km2 <- as.numeric(bound2$area_m2/1000000)
+
+head(bound2)
+
+admin_area <- as.data.frame(bound2[,c(1,4)])
 
 admin_area
 
