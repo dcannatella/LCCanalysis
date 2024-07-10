@@ -1,3 +1,9 @@
+# Part 3 // plotting maps ------------------------------------------------------
+
+# 0. import libraries ----------------------------------------------------------
+
+# 1. set color palettes and labels ---------------------------------------------
+
 pal <- c("#c14e55",
          "#a8aa3d",
          "#62ab85",
@@ -9,6 +15,9 @@ pal <- c("#c14e55",
 labels <- c("urban areas", "agriculture (cropland)",
             "agriculture (irrigated)", "grassland",
             "forest","forest (wetland)","water")
+
+
+# 2. plot LCC maps -------------------------------------------------------------
 
 ggplot()+
   geom_raster(data=coord_WGS04, aes(x=x, y=y, fill=factor(y1992)))+
@@ -33,6 +42,8 @@ ggplot()+
 
 ggsave("fig_output/m01a_LCC_2015.jpg", width = 7.5, height = 7.5, dpi = 300)
 
+
+# 2. plot urbanization maps ----------------------------------------------------
 
 df <- coord_WGS04
 
@@ -113,3 +124,4 @@ ggplot()+
 
 ggsave("fig_output/m02a_UA_2015.jpg", width = 7.5, height = 7.5, dpi = 300)
 
+# ------------------------------------ END PART 3 ------------------------------
