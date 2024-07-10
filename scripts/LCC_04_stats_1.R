@@ -1,4 +1,4 @@
-# Part 4 // calculating initial stats
+# Part 4.1 // calculating initial stats ----------------------------------------
 
 # 0. import libraries ----------------------------------------------------------
 
@@ -14,6 +14,7 @@ require(reshape2)
 require(scales)
 require(ggthemes)
 require(gridExtra)
+require(waffle)
 
 
 # 1. Create custom themes-------------------------------------------------------
@@ -161,7 +162,9 @@ lctot1992 <- stmatrix %>%
   group_by(y1992) %>%
   count()
 
-lctot1992$norm <- round(lctot1992$n/sum(lctot1992$n),4)*100
+lctot1992
+
+lctot1992$norm <- round(lctot1992$n/sum(lctot1992$n),3)*100
 
 lctot1992 <- lctot1992 %>%
 mutate(n2 = as.integer(norm),
@@ -178,7 +181,7 @@ lctot2015 <- stmatrix %>%
   group_by(y2015) %>%
   count()
 
-lctot2015$norm <- round(lctot2015$n/sum(lctot2015$n),4)*100
+lctot2015$norm <- round(lctot2015$n/sum(lctot2015$n),3)*100
 
 lctot2015 <- lctot2015 %>%
   mutate(n2 = as.integer(norm),
@@ -187,19 +190,16 @@ lctot2015 <- lctot2015 %>%
 
 lctot2015$n5 <- ifelse(lctot2015$n4==max(lctot2015$n4), lctot2015$n3-1, lctot2015$n3)
 
-sum(lctot2015$n3)
+sum(lctot2015$n5)
 
-require(waffle)
-
-pal <- c("#bd4d44","#c18e3a", "#83a442", "#965baa","#407c2e","#59ca94")
 
 pal <- c("#c14e55",
          "#a8aa3d",
          "#62ab85",
          "#c7924a",
          "#5b5e32",
-         "#5ca0b7",
-         "#5ca0b7")
+         "#757cad",
+         "#93b2b9")
   
 labels <- c("urban areas", "agriculture (cropland)",
             "agriculture (irrigated)", "grassland",
@@ -225,7 +225,7 @@ p1 <- ggplot(lctot1992, aes(fill=y1992, values=n5))+
   
 #plot waffle 2015
 
-p2 <- ggplot(lctot2015, aes(fill=y2015, values=n3))+
+p2 <- ggplot(lctot2015, aes(fill=y2015, values=n5))+
   geom_waffle(n_rows = 10, size=5, colour="white", flip= T, radius = unit(0.25, "npc"))+
   scale_fill_manual(name = NULL,
                     values = pal,
@@ -264,10 +264,12 @@ transform_values <- function(df) {
 # Apply the function to the dataframe
 st_urb <- transform_values(stmatrix)
 
+colnames(st_urb)
+
 st_urb <- st_urb %>%
   group_by(city) %>%
   summarise(across(where(is.numeric), sum)) %>%
-  dplyr::select(-c(2, 3)) %>%
+  dplyr::select(-c(2:5)) %>%
   melt()
 
 df_labs_start <- st_urb %>%
@@ -294,13 +296,19 @@ ggplot(st_urb, aes(variable, value, group = city))+
 
 ggsave("fig_output/04_urb_temp.jpg", width = 7.5, height = 7.5, dpi = 300)  
 
+# urbanization above/below
+
 st_urb <- transform_values(stmatrix)
 
+colnames(st_urb)
+
 st_urb <- st_urb %>%
-  group_by(city, AB) %>%
+  select(-c(1:4)) %>%
+  group_by(city, AB)%>%
   summarise(across(where(is.numeric), sum)) %>%
-  dplyr::select(-c(3, 4)) %>%
   melt()
+
+head(st_urb)
 
 st_urb$value <- ifelse(st_urb$AB == 'below', st_urb$value*-1, st_urb$value)
 
@@ -335,4 +343,6 @@ ggplot(st_urb, aes(variable, value/1000, fill=AB)) +
   guides(fill = guide_legend(reverse = TRUE))
 
 ggsave("fig_output/05_urb_city_lecz.jpg", width = 7.5, height = 7.5, dpi = 300) 
-  
+
+
+# ---------------------------------- END PART 4.1 ------------------------------  
