@@ -549,7 +549,7 @@ N/A \|
 
 </details>
 
-## Tools and Technologies {#tools-and-technologies}
+## Tools and Technologies
 
 -   **R Programming Language**: Utilized for data manipulation,
     analysis, and visualization.
@@ -563,7 +563,7 @@ N/A \|
 -   **Markdown**: Using Markdown for documentation to maintain
     consistency and readability.
 
-## How to contribute {#how-to-contribute}
+## How to contribute
 
 Contributing to the project is encouraged! You can help by fixing bugs,
 adding features, or improving documentation. If you have ideas, share
