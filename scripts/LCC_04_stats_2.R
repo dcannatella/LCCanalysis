@@ -107,4 +107,7 @@ ggplot(tmn_df, aes(x =factor(y2015), y=rev(factor(y1992)), fill= Freq)) +
 
 ggsave("fig_output/07_trans_m.jpg", width = 7.5, height = 7.5, dpi = 300)
 
-write.csv(transition_matrix_normalized, "data_output/04_transition_matrix.csv", row.names=TRUE)
+write.csv(transition_matrix_normalized, "data_output/04_transition_matrix.csv",
+          row.names=TRUE)
+
+# ---------------------------------- END PART 4.2 ------------------------------
