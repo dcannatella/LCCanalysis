@@ -17,8 +17,7 @@ text](https://img.shields.io/badge/anytext-youlike-blue)](https://example.org)
 -   [Tools and Technologies](#tools-and-technologies)
 -   [How to Contribute](#how-to-contribute)
 
-## Introduction {#introduction}
-
+## Introduction
 This repository contains R scripts, workflows and research outputs
 developed and generated in the Land Cover Change (LCC) analysis of the
 Pearl River Delta (PRD) urban megaregion. The results of this analysis
@@ -29,7 +28,7 @@ project utilized openly available datasets from various sources. For
 further information, please see the [Data Sources](#data-sources)
 section.
 
-## Project Objectives {#project-objectives}
+## Project Objectives
 
 The primary objectives of this project are as follows:
 
@@ -40,22 +39,17 @@ The primary objectives of this project are as follows:
     resolution of 1 year.
 
 2.  **Identify Patterns and Trends:** Identify and analyze LCC patterns
-    and trends in land cover change over a specific period, focusing on
+    and trends in land cover change over a specific period (1992-2015), focusing on
     urbanization, agricultural expansion, and natural land cover
     transformations in [Low Elevation Coastal Zones
     (LECZs)](https://en.wikipedia.org/wiki/Low_Elevation_Coastal_Zone).
 
-3.  **Assess Impacts on Environment and Society:** Assess the
-    environmental and societal impacts of observed land cover changes,
-    including implications for biodiversity, ecosystem services, and
-    human well-being.
-
-4.  **Provide Insights for Decision-Making:** Provide actionable
+3.  **Provide Insights for Decision-Making:** Provide actionable
     insights and recommendations based on the analysis results to inform
     land use planning, conservation efforts, and sustainable development
     initiatives in the PRD region.
 
-5.  **Contribute to Scientific Knowledge:** Contribute to the existing
+4.  **Contribute to Scientific Knowledge:** Contribute to the existing
     body of scientific knowledge on land cover dynamics in urban deltaic
     megaregions, particularly in the context of rapid urbanization and
     socio-environmental changes.
@@ -64,10 +58,10 @@ These objectives guide the methodology and analysis approach employed in
 this project, aiming to contribute to a better understanding of land
 cover dynamics and their implications for sustainable development.
 
-## Data Sources {#data-sources}
+## Data Sources
 
 The analysis of the Pearl River Delta's urbanization dynamics draws upon
-a diverse array of data sourceswith global coverage:
+a diverse array of data sources with global coverage:
 
 -   [**ESA CCI Land Cover Maps (ESA
     CCI-LC)**](https://www.esa-landcover-cci.org/?q=node/164): Provides
@@ -80,7 +74,7 @@ a diverse array of data sourceswith global coverage:
 -   [**GADM maps and data**](https://gadm.org/) provides maps and
     spatial data for all countries and their sub-divisions.
 
-## Methodology {#methodology}
+## Methodology
 
 ### Data Collection and Preprocessing
 
@@ -94,7 +88,7 @@ administrative boundaries vector file specific to the Pearl River Delta
 (PRD). This preprocessing step ensured the creation of a seamless and
 localized elevation dataset tailored to the study area. Additionally,
 administrative boundaries for the PRD were delineated by merging
-different shapefiles containing features on administrative boundaries of
+different shapefiles containing features on the administrative boundaries of
 Hong Kong, Macao, and Mainland cities forming the PRD. By harmonizing
 and integrating these diverse datasets, the analysis facilitated a
 comprehensive understanding of the urbanization dynamics within the PRD,
