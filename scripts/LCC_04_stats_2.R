@@ -1,7 +1,15 @@
+# Part 4.2 // calculating stats ------------------------------------------------
+
+# 0. import libraries ----------------------------------------------------------
+
 library(ggalluvial)
 library(dplyr)
 
+
+# 1. LCC sankey plot -----------------------------------------------------------
+
 stmatrix <- read.csv(here("data_output/02_stmatrix.csv"))
+
 head(stmatrix)
 
 
@@ -17,8 +25,8 @@ pal <- c("#c14e55",
          "#62ab85",
          "#c7924a",
          "#5b5e32",
-         "#5ca0b7",
-         "#5ca0b7")
+         "#757cad",
+         "#93b2b9")
 
 
 labels <- c("urban areas", "agriculture (cropland)",
@@ -52,7 +60,7 @@ ggplot(df,
 
 ggsave("fig_output/06_LCC_sankey.jpg", width = 7.5, height = 7.5, dpi = 300)
 
-# transition matrix ------------------------------------------------------------
+# 2. transition matrix ---------------------------------------------------------
 
 df <- stmatrix %>%
   dplyr::select(y1992,y2015)
